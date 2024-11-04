@@ -9,8 +9,8 @@
 
         <x-dropdown>
             <x-slot name="trigger">
-                <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none" @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account" aria-haspopup="true">
-                    {{ Auth::user()->name }}
+                <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none" @click="toggleProfileMenu" style="background-color: darkblue !important;padding-left: 10px;padding-right: 10px; border-radius:3px !important; color:white; font-weight:500;" @keydown.escape="closeProfileMenu" aria-label="Account" aria-haspopup="true">
+                    Hi, {{ Auth::user()->name }} 
                 </button>
             </x-slot>
 
