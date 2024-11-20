@@ -17,6 +17,7 @@
                 </x-nav-link>
             </li>
 
+            @if(auth()->user()->role == 'admin')
             <li class="relative px-6 py-3">
                 <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                     <x-slot name="icon">
@@ -30,6 +31,7 @@
                 </x-nav-link>
             </li>
             
+            
 
             <li class="relative px-6 py-3">
                 <button class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -38,7 +40,7 @@
                     <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                     </svg>
-                    <span class="ml-4">Siswa/Siswi</span>
+                    <span class="ml-4">Data Siswa/Siswi & Guru</span>
                 </span>
                     <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd"
@@ -54,16 +56,14 @@
                         class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                         aria-label="submenu">
                         <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="{{ route('users.index') }}">Nilai</a>
-                        </li>
-                        <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="{{ route('report') }}">Report</a>
+                            <a class="w-full" href="{{ route('dataSiswa') }}">Data Siswa/Siswi</a>
                         </li><li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                            <a class="w-full" href="{{ route('report') }}">Jadwal</a>
+                            <a class="w-full" href="{{ route('dataGuru') }}">Data Guru</a>
                         </li>
                     </ul>
                 </template>
             </li>
+            @endif
         </ul>
     </div>
 </aside>
