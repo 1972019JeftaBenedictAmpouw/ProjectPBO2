@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JadwalController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -22,8 +23,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/users/{user}', [UserController::class, 'update'])->name('update');
         Route::get('/dataSiswa', [UserController::class, 'dataSiswa'])->name('dataSiswa');
         Route::get('/dataGuru', [UserController::class, 'dataGuru'])->name('dataGuru');
+        Route::get('/add-jadwal', [JadwalController::class, 'create'])->name('addJadwalForm');
+        Route::post('/add-jadwal', [JadwalController::class, 'store'])->name('addJadwal');
     });
     
+    Route::get('/jadwal', [JadwalController::class, 'indexForSiswa'])->name('indexJadwal');
+
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

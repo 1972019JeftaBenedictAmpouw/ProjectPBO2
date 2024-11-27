@@ -9,6 +9,6 @@
 
 </div>
     <body>
-        Hello World
+        
     </body>
 </x-app-layout>
