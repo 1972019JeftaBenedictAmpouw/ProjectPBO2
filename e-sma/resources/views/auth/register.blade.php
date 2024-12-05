@@ -41,6 +41,16 @@
                     </div>
 
                     <div class="mt-4">
+                    <x-input-label for="Kelas" :value="__('Kelas')"/>
+                    <select name="Kelas" id="Kelas" class="block w-full">
+                        <option value="10" {{ old('role') == '10' ? 'selected' : '' }}>10</option>
+                        <option value="11" {{ old('role') == '11' ? 'selected' : '' }}>11</option>
+                        <option value="11" {{ old('role') == '11' ? 'selected' : '' }}>12</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('role')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
                         <x-input-label for="password" :value="__('Password')"/>
                         <x-text-input type="password"
                                  name="password"

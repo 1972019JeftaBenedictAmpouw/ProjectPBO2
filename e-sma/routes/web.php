@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\NilaiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -25,9 +26,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/dataGuru', [UserController::class, 'dataGuru'])->name('dataGuru');
         Route::get('/add-jadwal', [JadwalController::class, 'create'])->name('addJadwalForm');
         Route::post('/add-jadwal', [JadwalController::class, 'store'])->name('addJadwal');
+        Route::get('/add-nilai', [NilaiController::class, 'create'])->name('addNilaiForm');
+        Route::post('/add-nilai', [NilaiController::class, 'store'])->name('addNilai');
     });
     
     Route::get('/jadwal', [JadwalController::class, 'indexForSiswa'])->name('indexJadwal');
+    Route::get('/nilai', [NilaiController::class, 'indexForSiswa'])->name('indexNilai');
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
