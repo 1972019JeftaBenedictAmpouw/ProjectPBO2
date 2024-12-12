@@ -29,7 +29,7 @@
                         </thead>
                         <tbody class="bg-white divide-y">
                             @foreach($nilais as $nilai)
-                                @if(auth()->user()->role == 'siswa'  && auth()->user()->name == $nilai->name )
+                                @if(auth()->user()->role == 'siswa'  && auth()->user()->nomorInduk == $nilai->nomorInduk )
                                     <tr class="text-gray-700">
                                         <td class="px-4 py-3 text-sm">
                                             {{ $nilai->nomorInduk }}
