@@ -22,9 +22,9 @@
                     <table class="w-full whitespace-no-wrap">
                         <thead>
                             <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase bg-gray-50 border-b">
+                                <th class="px-4 py-3">Nomor Induk</th>
                                 <th class="px-4 py-3">Mata Pelajaran</th>
                                 <th class="px-4 py-3">Nilai</th>
-                                <th class="px-4 py-3">Kelas</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y">
@@ -32,13 +32,13 @@
                                 @if(auth()->user()->role == 'siswa'  && auth()->user()->name == $nilai->name )
                                     <tr class="text-gray-700">
                                         <td class="px-4 py-3 text-sm">
+                                            {{ $nilai->nomorInduk }}
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">
                                             {{ $nilai->maPel }}
                                         </td>
                                         <td class="px-4 py-3 text-sm">
                                             {{ $nilai->nilai }}
-                                        </td>
-                                        <td class="px-4 py-3 text-sm">
-                                            {{ $nilai->kelas }}
                                         </td>
                                     </tr>
                                 @endif
@@ -46,14 +46,29 @@
                             @foreach($nilais as $nilai)
                                 @if(auth()->user()->role == 'admin')
                                     <tr class="text-gray-700">
+                                        <<td class="px-4 py-3 text-sm">
+                                            {{ $nilai->nomorInduk }}
+                                        </td>
                                         <td class="px-4 py-3 text-sm">
                                             {{ $nilai->maPel }}
                                         </td>
                                         <td class="px-4 py-3 text-sm">
                                             {{ $nilai->nilai }}
                                         </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            @foreach($nilais as $nilai)
+                                @if(auth()->user()->role == "waliKelas" && auth()->user()->Kelas == $nilai->Kelas)
+                                    <tr class="text-gray-700">
                                         <td class="px-4 py-3 text-sm">
-                                            {{ $nilai->kelas }}
+                                            {{ $nilai->nomorInduk }}
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">
+                                            {{ $nilai->maPel }}
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">
+                                            {{ $nilai->nilai }}
                                         </td>
                                     </tr>
                                 @endif

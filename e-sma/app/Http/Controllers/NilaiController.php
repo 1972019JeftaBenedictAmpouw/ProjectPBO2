@@ -22,8 +22,7 @@ class NilaiController extends Controller
     public function create()
     {
         $nilais = Nilai::all();
-        $users = User::where('role', 'siswa')->distinct()->get(['id', 'nomorInduk', 'name']);
-        
+        $users = User::all();
         return view('addNilai', compact('nilais', 'users'));
     }
 
@@ -36,6 +35,7 @@ class NilaiController extends Controller
             'maPel' => 'required|string|max:255',
             'nilai' => 'required|integer|between:0,100',
             'nomorInduk' => 'required|int',
+            'Kelas' => 'required|int',
         ]);
 
         Nilai::create($request->all());
@@ -50,10 +50,11 @@ class NilaiController extends Controller
     {
         $nilais = Nilai::all();
         return view('dataNilai', compact('nilais'));
-        $users = User::where('role', 'siswa')->distinct()->pluck('Kelas'); 
-        return view('addNilai', compact('users'));
     }
 
+    
+
+    
     /**
      * Show the form for editing the specified resource.
      */

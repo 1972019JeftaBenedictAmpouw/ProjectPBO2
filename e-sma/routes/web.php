@@ -26,9 +26,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/dataGuru', [UserController::class, 'dataGuru'])->name('dataGuru');
         Route::get('/add-jadwal', [JadwalController::class, 'create'])->name('addJadwalForm');
         Route::post('/add-jadwal', [JadwalController::class, 'store'])->name('addJadwal');
+        
+    });
+
+    Route::middleware(['auth', 'checkRole:waliKelas'])->group(function () {
         Route::get('/add-nilai', [NilaiController::class, 'create'])->name('addNilaiForm');
         Route::post('/add-nilai', [NilaiController::class, 'store'])->name('addNilai');
-    });
+    });  
     
     Route::get('/jadwal', [JadwalController::class, 'indexForSiswa'])->name('indexJadwal');
     Route::get('/nilai', [NilaiController::class, 'indexForSiswa'])->name('indexNilai');
