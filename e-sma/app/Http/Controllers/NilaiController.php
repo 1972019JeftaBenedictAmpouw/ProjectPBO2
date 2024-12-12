@@ -22,7 +22,8 @@ class NilaiController extends Controller
     public function create()
     {
         $nilais = Nilai::all();
-        $users = User::where('role', 'siswa')->distinct()->pluck('name');
+        $users = User::where('role', 'siswa')->distinct()->get(['id', 'nomorInduk', 'name']);
+        
         return view('addNilai', compact('nilais', 'users'));
     }
 
@@ -33,9 +34,8 @@ class NilaiController extends Controller
     {
         $request->validate([
             'maPel' => 'required|string|max:255',
-            'nilai' => 'required|int',
-            'kelas' => 'required|in:10,11,12',
-            'name' => 'required|string|max:255',
+            'nilai' => 'required|integer|between:0,100',
+            'nomorInduk' => 'required|int',
         ]);
 
         Nilai::create($request->all());

@@ -16,6 +16,7 @@
                     {{ __('Pengumuman') }}
                 </x-nav-link>
             </li>
+
             <li class="relative px-6 py-3">
                 <x-nav-link href="{{ route('indexJadwal') }}" :active="request()->routeIs('indexJadwal')">
                     <x-slot name="icon">
@@ -26,6 +27,18 @@
                     {{ __('Jadwal') }}
                 </x-nav-link>
             </li>
+
+            <li class="relative px-6 py-3">
+                <x-nav-link href="{{ route('indexNilai') }}" :active="request()->routeIs('indexNilai')">
+                    <x-slot name="icon">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h18M3 8h18M3 12h18M3 16h18M3 20h18"></path>
+                    </svg>
+                    </x-slot>
+                    {{ __('Nilai') }}
+                </x-nav-link>
+            </li>
+            
             @if(auth()->user()->role == 'admin')
             <li class="relative px-6 py-3">
                 <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
@@ -50,8 +63,21 @@
                     {{ __('Tambah Jadwal') }}
                 </x-nav-link>
             </li>
-            
 
+            @endif
+            @if(auth()->user()->role == 'admin' || @auth()->user()->role == 'waliKelas'))
+            <li class="relative px-6 py-3">
+                <x-nav-link href="{{ route('addNilai') }}" :active="request()->routeIs('addNilai')">
+                    <x-slot name="icon">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    </x-slot>
+                    {{ __('Tambah Nilai') }}
+                </x-nav-link>
+            </li>
+            @endif
+            @if(auth()->user()->role == 'admin')
             <li class="relative px-6 py-3">
                 <button class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                         @click="toggleMultiLevelMenu" aria-haspopup="true">

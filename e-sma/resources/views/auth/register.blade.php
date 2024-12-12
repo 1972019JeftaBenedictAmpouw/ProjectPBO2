@@ -9,7 +9,7 @@
 
                 <form method="POST" action="{{ route('register') }}">
                 @csrf
-
+                
                     <div class="mt-4">
                         <x-input-label for="name" :value="__('Name')"/>
                         <x-text-input type="text"
@@ -36,6 +36,7 @@
                     <select name="role" id="role" class="block w-full">
                         <option value="guru" {{ old('role') == 'guru' ? 'selected' : '' }}>Guru</option>
                         <option value="siswa" {{ old('role') == 'siswa' ? 'selected' : '' }}>Siswa</option>
+                        <option value="waliKelas" {{ old('role') == 'waliKelas' ? 'selected' : '' }}>Wali Kelas</option>
                     </select>
                     <x-input-error :messages="$errors->get('role')" class="mt-2" />
                     </div>
@@ -48,6 +49,54 @@
                         <option value="11" {{ old('role') == '11' ? 'selected' : '' }}>12</option>
                     </select>
                     <x-input-error :messages="$errors->get('role')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-input-label for="nomorInduk" :value="__('NomorInduk')"/>
+                        <x-text-input type="number"
+                                 id="nomorInduk"
+                                 name="nomorInduk"
+                                 class="block w-full"
+                                 value="{{ old('nomorInduk') }}"
+                                 required
+                                 autofocus/>
+                        <x-input-error :messages="$errors->get('nomorInduk')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-input-label for="namaWali" :value="__('Nama Wali')"/>
+                        <x-text-input type="text"
+                                 id="namaWali"
+                                 name="namaWali"
+                                 class="block w-full"
+                                 value="{{ old('namaWali') }}"
+                                 required
+                                 autofocus/>
+                        <x-input-error :messages="$errors->get('namaWali')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-input-label for="noTelpon" :value="__('No Telpon')"/>
+                        <x-text-input type="number"
+                                 id="noTelpon"
+                                 name="noTelpon"
+                                 class="block w-full"
+                                 value="{{ old('noTelpon') }}"
+                                 required
+                                 autofocus/>
+                        <x-input-error :messages="$errors->get('noTelpon')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-input-label for="Alamat" :value="__('Alamat')"/>
+                        <x-text-input type="text"
+                                 id="Alamat"
+                                 name="Alamat"
+                                 class="block w-full"
+                                 value="{{ old('Alamat') }}"
+                                 required
+                                 autofocus/>
+                        <x-input-error :messages="$errors->get('Alamat')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
