@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Nilai;
 use App\Models\User;
+use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
 
 class NilaiController extends Controller
@@ -23,7 +24,8 @@ class NilaiController extends Controller
     {
         $nilais = Nilai::all();
         $users = User::all();
-        return view('addNilai', compact('nilais', 'users'));
+        $mapels = MataPelajaran::all();
+        return view('addNilai', compact('nilais', 'users','mapels'));
     }
 
     /**
@@ -31,17 +33,30 @@ class NilaiController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi data
         $request->validate([
             'maPel' => 'required|string|max:255',
-            'nilai' => 'required|integer|between:0,100',
-            'nomorInduk' => 'required|int',
-            'Kelas' => 'required|int',
+            'Kelas' => 'required|string|max:255',
+            'nilai' => 'required|array',
         ]);
 
-        Nilai::create($request->all());
+        $data = [];
+        foreach ($request->nilai as $nomorInduk => $nilai) {
+            $data[] = [
+                'maPel' => $request->maPel,
+                'Kelas' => $request->Kelas,
+                'nomorInduk' => $nomorInduk,
+                'nilai' => $nilai,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
 
-        return redirect()->route('addNilai')->with('success', 'Nilai berhasil ditambahkan.');
+        Nilai::insert($data);
+
+        return redirect()->route('addNilai')->with('success', 'Nilai berhasil ditambahkan untuk semua siswa.');
     }
+
 
     /**
      * Display the specified resource.

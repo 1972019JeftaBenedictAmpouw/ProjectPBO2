@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
         
     });
 
-    Route::middleware(['auth', 'checkRole:waliKelas'])->group(function () {
+    Route::middleware(['auth', 'checkRole:guru'])->group(function () {
         Route::get('/add-nilai', [NilaiController::class, 'create'])->name('addNilaiForm');
         Route::post('/add-nilai', [NilaiController::class, 'store'])->name('addNilai');
     });  

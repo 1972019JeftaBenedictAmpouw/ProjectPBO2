@@ -97,7 +97,7 @@
                 </template>
             </li>
             @endif
-            @if(@auth()->user()->role == 'waliKelas')
+            @if(@auth()->user()->role == 'guru')
             <li class="relative px-6 py-3">
                 <x-nav-link href="{{ route('addNilai') }}" :active="request()->routeIs('addNilai')">
                     <x-slot name="icon">
