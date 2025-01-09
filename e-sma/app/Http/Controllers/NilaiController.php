@@ -20,20 +20,35 @@ class NilaiController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $nilais = Nilai::all();
-        $users = User::all();
+        $request->validate([
+            'kelas' => 'required|string|max:255',
+        ]);
+
+        $kelas = $request->kelas;
+
+        $users = User::where('kelas', $kelas)->where('role', 'siswa')->get();
         $mapels = MataPelajaran::all();
-        return view('addNilai', compact('nilais', 'users','mapels'));
+        $nilais = Nilai::all();
+
+        return view('addNilai', compact('users', 'mapels', 'kelas', 'nilais'));
     }
 
+    public function pilihKelas()
+    {
+        $kelasList = ['10', '11', '12'];
+
+        return view('pilihKelas', compact('kelasList'));
+    }
+
+
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // Validasi data
         $request->validate([
             'maPel' => 'required|string|max:255',
             'Kelas' => 'required|string|max:255',
