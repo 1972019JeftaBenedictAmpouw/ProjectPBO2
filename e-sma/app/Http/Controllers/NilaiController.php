@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Nilai;
 use App\Models\User;
 use App\Models\MataPelajaran;
+use App\Models\Pengajar;
 use Illuminate\Http\Request;
 
 class NilaiController extends Controller
@@ -25,23 +26,65 @@ class NilaiController extends Controller
         $request->validate([
             'kelas' => 'required|string|max:255',
         ]);
+    
+        $kelas = $request->kelas;
+        $mapel = session('maPel');
+        $pengajars= Pengajar::where('pengajar', 'maPel')->get();
+    
+        if (!$mapel) {
+            return redirect()->route('pilihMapel')->with('error', 'Silakan pilih mata pelajaran terlebih dahulu.');
+        }
+    
+        session(['kelas' => $kelas]);
+    
+        $users = User::where('kelas', $kelas)->where('role', 'siswa')->get();
+        return view('addNilai', compact('users', 'kelas', 'mapel','pengajars'));
+    }
+
+    public function pilihMapel()
+    {
+        $mapels = MataPelajaran::all();
+        $user = auth()->user();
+        $pengajars = Pengajar::where('pengajar', $user->name)->get();
+        return view('pilihMapel', compact('mapels','pengajars'));
+    }
+    
+    
+    public function pilihKelas(Request $request)
+    {
+        $request->validate([
+            'maPel' => 'required|string|max:255',
+        ]);
+        
+        $mapel = $request->maPel;
+        session(['maPel' => $mapel]);
+        $user = auth()->user();
+        $pengajars = Pengajar::where('pengajar', $user->name)->get();
+
+        $kelasList = ['10', '11', '12'];
+        return view('pilihKelas', compact('mapel', 'kelasList','pengajars'));
+    }
+
+    public function addNilai(Request $request)
+    {
+        $request->validate([
+            'kelas' => 'required|string|max:255',
+        ]);
 
         $kelas = $request->kelas;
+        $mapel = session('maPel');
+        $user = auth()->user();
+        $pengajars = Pengajar::where('pengajar', $user->name)->get();
+
+        if (!$mapel) {
+            return redirect()->route('pilihMapel')->with('error', 'Silakan pilih mata pelajaran terlebih dahulu.');
+        }
+
+        session(['kelas' => $kelas]);
 
         $users = User::where('kelas', $kelas)->where('role', 'siswa')->get();
-        $mapels = MataPelajaran::all();
-        $nilais = Nilai::all();
-
-        return view('addNilai', compact('users', 'mapels', 'kelas', 'nilais'));
+        return view('addNilai', compact('users', 'kelas', 'mapel','pengajars'));
     }
-
-    public function pilihKelas()
-    {
-        $kelasList = ['10', '11', '12'];
-
-        return view('pilihKelas', compact('kelasList'));
-    }
-
 
     
     /**

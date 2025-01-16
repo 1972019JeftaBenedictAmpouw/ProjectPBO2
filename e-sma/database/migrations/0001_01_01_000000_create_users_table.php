@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('noTelpon');
             $table->string('Alamat');
             $table->string('role');
+            $table->string('maPel');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\PengajarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -16,6 +17,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'checkRole:admin'])->group(function () {
         Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
@@ -26,6 +28,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/dataGuru', [UserController::class, 'dataGuru'])->name('dataGuru');
         Route::get('/add-jadwal', [JadwalController::class, 'create'])->name('addJadwalForm');
         Route::post('/add-jadwal', [JadwalController::class, 'store'])->name('addJadwal');
+        Route::get('/pengajar', [PengajarController::class, 'create'])->name('addPengajar');
+        Route::post('/pengajar', [PengajarController::class, 'store'])->name('addPengajarStore');
         
     });
 
@@ -33,6 +37,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/add-nilai', [NilaiController::class, 'create'])->name('addNilaiForm');
         Route::post('/add-nilai', [NilaiController::class, 'store'])->name('addNilai');
         Route::get('/pilih-kelas', [NilaiController::class, 'pilihKelas'])->name('pilihKelas');
+        Route::get('/pilih-mapel', [NilaiController::class, 'pilihMapel'])->name('pilihMapel');
+        Route::post('/input-nilai', [NilaiController::class, 'inputNilai'])->name('inputNilai');
     });  
     
     Route::get('/jadwal', [JadwalController::class, 'indexForSiswa'])->name('indexJadwal');

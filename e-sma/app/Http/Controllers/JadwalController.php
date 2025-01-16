@@ -10,7 +10,7 @@ class JadwalController extends Controller
 {
     public function create()
     {
-        $gurus = User::where('role', 'guru')->get(['id', 'nomorInduk']);
+        $gurus = User::where('role', 'guru')->get(['id', 'nomorInduk', 'name']);
         return view('addJadwal', compact('gurus'));
     }
 
